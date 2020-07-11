@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 
 const publicDir = path.join(__dirname, "public");
-app.use(express.static(publicDir));
 
 const PORT = process.env.PORT || 3001;
 
@@ -70,6 +69,16 @@ function authenticateToken(req, res, next) {
     next();
   })
 }
+
+// if in production use build folder for the static assets
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static(path.join(__dirname, "client", "build")))
+}
+
+// send all other requests to inex.html so react takes over
+app.get("*", (req,res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"))
+})
 
 
 app.listen(PORT, () => console.log('Server Listening on Port', PORT));
