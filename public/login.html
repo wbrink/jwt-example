@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="" method="" id="loginForm">
+    <label for="username">Login</label>
+    <input type="text" id="username" name="username">
+    <input type="submit" value="Login">
+  </form>
+
+
+  <script>
+    const formSubmit = document.querySelector("#loginForm");
+    const username = document.querySelector("#username");
+
+    formSubmit.addEventListener("submit", (e) => {
+      console.log("form submitted");
+      e.preventDefault();
+      fetch("/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({username: username.value})
+      })
+        .then(res => res.json())
+        .then(data => {
+          // set token as local storage
+          localStorage.setItem("token", data.accessToken)
+        })
+    })
+  </script>
+</body>
+</html>
