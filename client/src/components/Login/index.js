@@ -60,8 +60,14 @@ function Login(props) {
     }
   }
 
-  const logout = () => {
-    localStorage.removeItem("token");
+  const logout = async () => {
+    try {
+      const res = await fetch("/api/logout");
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const refreshToken = async () => {
