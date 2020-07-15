@@ -2,11 +2,9 @@ import React, {useState, useEffect} from "react";
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 
 
-function Login(props) {
+function Main(props) {
 
   const [username, setUsername] = useState("");
-  const [access, setAccess] = useState("");
-  const [refresh, setRefresh] = useState("");
   const [allowed, setAllowed] = useState("");
 
   // submit the form
@@ -30,8 +28,6 @@ function Login(props) {
       const data = await res.json(); // 
       
       console.log(data);
-      setAccess(data.accessToken);
-      setRefresh(data.refreshToken);
       // localStorage.setItem("token", JSON.stringify(accessToken))
     } catch (error) {
       console.log("there was an error AJAX")
@@ -89,24 +85,28 @@ function Login(props) {
   // jsx
   return (
     <div>
-      <h1>Login</h1>
+      <h1>JWT Example</h1>
+      <p>
+        This is a small implementation of JSON Web Tokens for API authentication. The <i>Test Protected Route</i> Button makes a AJAX request to a protected route on an API. 
+        The <i>Refresh Token</i> button allows a new access token to be granted to the user. 
+        The <i>Logout</i> button expires the Access and Refresh token that was given to the user when they submitted the fake login form. Check the inspector tools to view the cookies being made and expired.
+      </p>
       <form onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="username">Username</label>
         <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-        <input type="submit" value="Submit"/>
+        <input type="submit" value="Login"/>
       </form>
       <p>The token expires in 15 seconds</p>
       <button onClick={testProtectedRoute}>Test Protected Route</button>
       <button onClick={refreshToken}>Refresh Token</button>
-      <button onClick={logout}>Delete Refresh Token and access token (logout)</button>
+      <button onClick={logout}>Logout</button>
       <p>Allowed: {allowed}</p>
 
-      <p>Access Token: {access}</p>
-      <p>Refresh Token: {refresh}</p>
+      
 
     </div>
     
   )
 }
 
-export default Login;
+export default Main;

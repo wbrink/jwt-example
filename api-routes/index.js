@@ -65,7 +65,7 @@ router.post("/api/login", (req,res) => {
 
 
 router.get("/api/protected", isAuthenticated, (req,res) => {
-  res.json({allowed: "hello world"});
+  res.json({allowed: true});
 })
 
 

@@ -43,6 +43,7 @@ function authenticateTokenMiddleware(req, res, next) {
       if (err) {
         return res.sendStatus(403);
       }
+      console.log("token verified");
       req.user = user;
       next();
     })
