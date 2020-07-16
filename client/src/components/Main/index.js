@@ -101,9 +101,6 @@ function Main(props) {
       <button onClick={refreshToken}>Refresh Token</button>
       <button onClick={logout}>Logout</button>
       <p>Allowed: {allowed}</p>
-
-      
-
     </div>
     
   )

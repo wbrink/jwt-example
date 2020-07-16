@@ -69,6 +69,10 @@ router.get("/api/protected", isAuthenticated, (req,res) => {
 })
 
 
+router.get("/api/isLoggedIn", isAuthenticated, (req,res) => {
+  res.json({authorized: true});
+})
+
 
 
 module.exports = router;
