@@ -12,21 +12,29 @@ function PageRedirection(props) {
 
   useEffect(() => {
     console.log(props);
+    if (props.location?.state?.from?.pathname !== undefined) {
+      console.log("optional chaining worked");
+      setRedirected(true);
+      setPath(props.location.state.from.pathname)
+    } 
 
-    if (props.hasOwnProperty('location')) {
-      console.log("has location");
-      if (props.location.hasOwnProperty("state")) {
-        console.log("has state");
-        if (props.location.state.hasOwnProperty("from")) {
-          console.log("has from");
-          if (props.location.state.from.hasOwnProperty("pathname")) {
-            console.log("here is the pathname");
-            setRedirected(true);
-            setPath(props.location.state.from.pathname);
-          }
-        }
-      }
-    }
+    // if (props) {
+    //   if (props.hasOwnProperty('location')) {
+    //     console.log("has location");
+    //     if (props.location.hasOwnProperty("state")) {
+    //       console.log("has state");
+    //       if (props.location.state.hasOwnProperty("from")) {
+    //         console.log("has from");
+    //         if (props.location.state.from.hasOwnProperty("pathname")) {
+    //           console.log("here is the pathname");
+    //           setRedirected(true);
+    //           setPath(props.location.state.from.pathname);
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
+    
   }, [])
 
   return (
