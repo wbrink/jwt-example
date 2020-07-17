@@ -1,32 +1,38 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 
 function PageRedirection(props) {
+  const [redirected, setRedirected] = useState(false);
+  const [path, setPath] = useState("");
 
   const handleClick = () => {
-    if (props.hasOwnProperty('location')) {
-      console.log("has location");
-      if (props.hasOwnProperty("state")) {
-        console.log("has state");
-        if (props.hasOwnProperty("from")) {
-          console.log("has from");
-          if (props.hasOwnProperty("pathname")) {
-            console.log("has pathname");
-          }
-        }
-
-      }
-    }
-    // props.history.push(props.location.state.from.pathname)
+    // this button will only show if there is a redirected "from state"
+    props.history.push(props.location.state.from);
+    
   }
 
   useEffect(() => {
-    console.log("Props for redirected", props);
+    console.log(props);
+
+    if (props.hasOwnProperty('location')) {
+      console.log("has location");
+      if (props.location.hasOwnProperty("state")) {
+        console.log("has state");
+        if (props.location.state.hasOwnProperty("from")) {
+          console.log("has from");
+          if (props.location.state.from.hasOwnProperty("pathname")) {
+            console.log("here is the pathname");
+            setRedirected(true);
+            setPath(props.location.state.from.pathname);
+          }
+        }
+      }
+    }
   }, [])
 
   return (
     <div>
           <h1>Redirected Page When not logged in</h1>
-          <button onClick={handleClick}>Go to redirected route</button>
+          {redirected ? <button onClick={handleClick}>Go to redirected route {path}</button> : ""}
     </div>
 
     
